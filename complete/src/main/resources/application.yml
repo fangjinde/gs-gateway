@@ -1,2 +1,22 @@
+spring:
+  application:
+    name: gw-complete
+  profiles:
+    active: default
 server:
   port: 9999
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+    registryFetchIntervalSeconds: 180
+  instance:
+    prefer-ip-address: true
+    appname: ${spring.application.name}.${spring.profiles.active}
+    virtualHostName: ${eureka.instance.appname}
+    secureVirtualHostName: ${eureka.instance.appname}
+    leaseRenewalIntervalInSeconds: 180
+logging:
+  level:
+    org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener: DEBUG
+
