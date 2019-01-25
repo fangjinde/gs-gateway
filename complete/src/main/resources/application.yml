@@ -6,6 +6,36 @@ spring:
   cloud:
     zookeeper:
       enabled: false
+  zipkin:
+    sender:
+      type: kafka
+    kafka:
+      topic: zipkin_test
+  sleuth:
+    propagationKeys:
+      - traceoriginenv
+      - provider-id
+    sampler:
+      probability: 1.0f
+    hystrix:
+      strategy:
+        enabled: false
+    async:
+      enabled: true
+    scheduled:
+      enabled: true
+    integration:
+      enabled: false
+  kafka:
+    bootstrapServers: study-kafka1.dg.163.org:9092,study-kafka2.dg.163.org:9092,study-kafka3.dg.163.org:9092
+  autoconfigure:
+    exclude:
+      - org.springframework.cloud.sleuth.zipkin2.ZipkinAutoConfiguration
+      - org.springframework.cloud.sleuth.instrument.web.client.feign.TraceFeignClientAutoConfiguration
+      - org.springframework.cloud.sleuth.instrument.web.TraceWebServletAutoConfiguration
+      - org.springframework.cloud.sleuth.instrument.web.TraceWebAutoConfiguration
+      - org.springframework.cloud.sleuth.instrument.async.AsyncDefaultAutoConfiguration
+      - org.springframework.cloud.sleuth.instrument.async.AsyncCustomAutoConfiguration
 server:
   port: 9999
 eureka:
@@ -22,3 +52,26 @@ eureka:
 logging:
   level:
     org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener: DEBUG
+shuffle:
+  enable: false
+  turn-on: ${shuffle.enable}
+  turnOn: ${shuffle.enable}
+  standard-env-name: edu-std
+  anonymous-topic-names[0]: springCloudBus
+  redis:
+    host: ${trace.redis.host}
+    port: ${trace.redis.port}
+    password: ${trace.redis.password}
+    timeout: ${trace.redis.timeout}
+
+#eds-tracer
+trace:
+  http:
+    needTraceRedirectUrlPattern: study.163.com$
+  redis:
+    host: 10.177.255.35
+    port: 6379
+    password: 92dgQ89KuWGy
+    timeout: 3000
+  kafka:
+    bootstrapServers: ${spring.kafka.bootstrapServers}
