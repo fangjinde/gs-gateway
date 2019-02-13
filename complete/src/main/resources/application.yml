@@ -36,6 +36,7 @@ spring:
       - org.springframework.cloud.sleuth.instrument.web.TraceWebAutoConfiguration
       - org.springframework.cloud.sleuth.instrument.async.AsyncDefaultAutoConfiguration
       - org.springframework.cloud.sleuth.instrument.async.AsyncCustomAutoConfiguration
+      - org.springframework.cloud.sleuth.instrument.web.TraceWebFluxAutoConfiguration
 server:
   port: 9999
 eureka:
