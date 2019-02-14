@@ -37,7 +37,11 @@ public class Application {
 
 
         Function<PredicateSpec, Route.AsyncBuilder> fn3 = predicateSpec -> predicateSpec.path("/traceBackend/**").filters(f -> f.stripPrefix(1)).uri("lb://EDS-TRACER-DEMO.EDU-STD");
-        return builder.routes().route(fn1).route(fn2).route(fn3).build();
+
+
+        Function<PredicateSpec, Route.AsyncBuilder> fn4 = predicateSpec -> predicateSpec.host("echo.fjd.com").uri("lb://EDS-TRACER-DEMO.EDU-STD");
+
+        return builder.routes().route(fn1).route(fn2).route(fn3).route(fn4).build();
 
     }
     // end::route-locator[]
